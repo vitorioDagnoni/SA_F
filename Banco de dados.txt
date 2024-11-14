@@ -1,0 +1,28 @@
+CREATE DATABASE situaçãoaprendizagem;
+USE situaçãoaprendizagem;
+SET FOREIGN_KEY_CHECKS=0;
+		
+CREATE TABLE TarefaT
+      (Tipo_Taref          VARCHAR (100) NOT NULL PRIMARY KEY,
+       Descricao                 VARCHAR (300));			  	     
+	     
+CREATE TABLE Usuario
+ 	     (Nome_Usuario      VARCHAR (45) NOT NULL PRIMARY KEY,
+	      Senha_Usuario     VARCHAR (15) NOT NULL,
+	      Tipo_Usuario      VARCHAR (15) NOT NULL,
+	      Bloqueada         BOOLEAN);
+	      
+CREATE TABLE Tarefas
+      ( Nome_Usuario       VARCHAR (45)  NOT NULL,
+        Nome_Taref           VARCHAR (100) NOT NULL PRIMARY KEY,
+        Tipo_Taref              VARCHAR (100) NOT NULL,
+        Status_Taref           VARCHAR (100) NOT NULL,
+        FOREIGN KEY (Nome_Usuario) REFERENCES Usuario(Nome_Usuario),
+        FOREIGN KEY (Tipo_Taref) REFERENCES TarefaT(Tipo_Taref)
+		);
+
+
+create user 'usufunc'@'localhost' identified by 'passfunc';
+select * from mysql.user where user = 'usufunc';
+grant all privileges on *.* to 'usufunc'@'localhost';
+flush privileges;
